@@ -1,3 +1,14 @@
 html {
+    max-width: 800px;
+    padding: 5px;
+
+    font-size: 16px;
+    font-family: sans-serif;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+h1,h2,h3,h4,h5 {
+    font-family: "Lucida Console", Monaco, monospace;
+
 
 }
