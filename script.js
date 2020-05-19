@@ -2,6 +2,11 @@
 let lg = console.log;
 
 const modal = document.getElementById('modal');
+modal.addEventListener('click', () => {
+    window.location.hash = '';
+});
+
+const content = document.getElementById('content');
 const pages = document.getElementById('pages');
 
 const apiUrl = 'https://wp.palone.blog/?rest_route=';
@@ -57,8 +62,11 @@ function renderContent() {
     // If there is no location hash, close modal and retirn early
     if (!window.location.hash) {
         modal.classList.remove('show');
+        content.innerHTML = '';
         return;
     }
+
+    modal.classList.add('show');
 
     let type = 'pages'; // Assume page by default
     if (window.location.hash.match(/^#post/)) type = 'posts'; // Change to post if needed
@@ -68,11 +76,11 @@ function renderContent() {
     fetch(`${apiUrl}/wp/v2/${type}/${id}&_fields=content, title`)
         .then(res => res.json())
         .then(data => {
-            modal.innerHTML = `
-                <a href="#" class="back">back</a>
+            content.innerHTML = `
+                <a href="#">Go Back</a>
                 <h1>${data.title.rendered}</h1>
                 ${data.content.rendered}
+                <a href="#">Go Back</a>
             `;
-            modal.classList.add('show');
         });
 }
