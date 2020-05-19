@@ -9,7 +9,7 @@ const apiUrl = 'https://wp.palone.blog/?rest_route=';
 // Render links once DOM is loaded
 window.addEventListener('load', () => {
     renderLinks();
-    if(window.location.hash) renderContent(); // remderContent on pageload if a hash is set
+    if (window.location.hash) renderContent(); // remderContent on pageload if a hash is set
 });
 
 // Show content in modal when the location hash changes
@@ -55,13 +55,13 @@ function renderLinks() {
 
 function renderContent() {
     // If there is no location hash, close modal and retirn early
-    if(!window.location.hash) {
+    if (!window.location.hash) {
         modal.classList.remove('show');
         return;
     }
 
     let type = 'pages'; // Assume page by default
-    if(window.location.hash.match(/^#post/)) type = 'posts'; // Change to post if needed
+    if (window.location.hash.match(/^#post/)) type = 'posts'; // Change to post if needed
 
     let id = window.location.hash.match(/[0-9]+$/)[0];
 
