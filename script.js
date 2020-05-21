@@ -2,8 +2,16 @@
 let lg = console.log;
 
 const modal = document.getElementById('modal');
-modal.addEventListener('click', () => {
-    window.location.hash = '';
+modal.addEventListener('click', (e) => {
+    // To make sure only the modal and not the content inside has been clicked, we check if content is in the event path
+    // And if it is, set a flag to stop the hash from changing
+    let flag = false;
+
+    e.path.map(el => {
+        if(el.id === 'content') flag = true;
+    });
+    
+    if(!flag) window.location.hash = '';
 });
 
 const content = document.getElementById('content');
@@ -33,12 +41,12 @@ function renderLinks() {
                     <a href="#${page.slug}-${page.id}">${page.title.rendered}</a>
                 `;
 
-                pages.innerHTML += el;
+                pages.innerHTML = el + pages.innerHTML;
             });
         });
 
     // Get posts
-    fetch(`${apiUrl}/wp/v2/posts&_fields=title,id,slug,excerpt`)
+    fetch(`${apiUrl}/wp/v2/posts&_fields=title,id,slug,excerpt&per_page=100`)
         .then(res => res.json())
         .then(data => {
             data.map(post => {
@@ -77,10 +85,9 @@ function renderContent() {
         .then(res => res.json())
         .then(data => {
             content.innerHTML = `
-                <a href="#">Go Back</a>
+                <a href="#" class="back">×</a>
                 <h1>${data.title.rendered}</h1>
                 ${data.content.rendered}
-                <a href="#">Go Back</a>
             `;
         });
 }
