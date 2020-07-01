@@ -85,7 +85,7 @@ function renderContent() {
         .then(res => res.json())
         .then(data => {
             content.innerHTML = `
-                <a href="#" class="back">×</a>
+                <a class="back" onclick="window.history.back()">×</a>
                 <h1>${data.title.rendered}</h1>
                 ${data.content.rendered}
             `;
