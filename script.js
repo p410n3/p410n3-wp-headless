@@ -11,7 +11,7 @@ modal.addEventListener('click', (e) => {
         if(el.id === 'content') flag = true;
     });
     
-    if(!flag) window.history.back();
+    if(!flag) window.location.hash = '';
 });
 
 const content = document.getElementById('content');
@@ -85,7 +85,7 @@ function renderContent() {
         .then(res => res.json())
         .then(data => {
             content.innerHTML = `
-                <a class="back" onclick="window.history.back()">×</a>
+                <a href="#" class="back">×</a>
                 <h1>${data.title.rendered}</h1>
                 ${data.content.rendered}
             `;
