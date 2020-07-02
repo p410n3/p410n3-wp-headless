@@ -11,7 +11,7 @@ modal.addEventListener('click', (e) => {
         if(el.id === 'content') flag = true;
     });
     
-    if(!flag) window.location.hash = '';
+    if(!flag) window.history.back();
 });
 
 const content = document.getElementById('content');
