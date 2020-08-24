@@ -46,15 +46,22 @@ function renderLinks() {
         });
 
     // Get posts
-    fetch(`${apiUrl}/wp/v2/posts&_fields=title,id,slug,excerpt&per_page=100`)
+    fetch(`${apiUrl}/wp/v2/posts&_fields=title,id,slug,excerpt,date&per_page=100`)
         .then(res => res.json())
         .then(data => {
             data.map(post => {
+                let dateString = post.date.split('T')[0];
+                let date = new Date(dateString);
+                let dateText = date.toDateString();
+
                 let el = `
                     <div class="post">
                         <h2>
                             <a href="#post-${post.slug}-${post.id}">${post.title.rendered}</a>
                         </h2>
+                        <span class="date">
+                            Published: ${dateText}
+                        </span>
                         <span>
                             ${post.excerpt.rendered}
                         </span>
